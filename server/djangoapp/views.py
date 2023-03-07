@@ -69,9 +69,9 @@ def registration_request(request):
         # <HINT> Get user information from request.POST
         # <HINT> username, first_name, last_name, password
         username = request.POST['username']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        password = request.POST['password']
+        first_name = request.POST['firstname']
+        last_name = request.POST['lastname']
+        password = request.POST['psw']
         user_exist = False
         try:
             # Check if user already exists
@@ -84,10 +84,10 @@ def registration_request(request):
         if not user_exist:
             # Create user in auth_user table
             user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, password=password)#<HINT> create the user with above info)
-            login_request(user)
+            login_request(request)
             # <HINT> Login the user and 
             # redirect to course list page
-            return redirect("djangoapp:index")
+            return redirect("djangoapp/index.html")
         else:
             return render(request, 'djangoapp/registration.html', context)
 
